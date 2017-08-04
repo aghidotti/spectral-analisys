@@ -21,13 +21,22 @@ function [P PHI] = mon_psd(x_n, NFFT)
   # devo sommare le due metà delo spettro.
   P_left = MOD_SQ(1:NFFT/2+1);
   P_right = fliplr(MOD_SQ)(1:NFFT/2);
-  P = 1/(N^2) .* ( P_left .+ [0 P_right]); 
+  P = 1/(N.*NFFT) .* ( P_left .+ [0 P_right]); 
   PHI = rad2deg(PHASE)(NFFT/2:end);
  
+  idx_q = linspace(0,NFFT-1,NFFT);
+  omega_q = 2*pi/NFFT .* idx_q;
+  
+  # grafico lo spettro bilatero  
+  figure;
+  stem(omega_q, MOD, ";MOD;", "color", "r", "markersize", 3);
+  grid on;
+  
+  # grafico lo spettro monolatero
+  
   idx_q = linspace(0,NFFT/2,NFFT/2+1);
   omega_q = 2*pi/NFFT .* idx_q;
   
-  # grafico lo spettro bilatero
   figure;
   stem(omega_q, P, ";P;", "markersize", 3);
   grid on;

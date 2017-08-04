@@ -55,7 +55,7 @@ figure;
 plot(s, x_s, ";xs;");
 
 %bil_fft(x_s,N);
-[P,PHI] = mon_psd(x_s,N*2);
+[P,PHI] = mon_psd(x_s,N*8);
 
 return;
 
