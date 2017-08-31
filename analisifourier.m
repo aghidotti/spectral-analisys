@@ -37,8 +37,16 @@ x2_s = 2*sin(2*w0*s);   rms2 = sqrt(1/N*sumsq(x2_s));
 x3_s = 3*sin(3*w0*s);   rms3 = sqrt(1/N*sumsq(x3_s));
 x4_s = 4*sin(4*w0*s);   rms4 = sqrt(1/N*sumsq(x4_s));
 
+%mu = 15;
+%x0_s = repmat(mu,1,N);   rms0 = sqrt(1/N*sumsq(x0_s));
+%x1_s = 10*sin(w0*s);     rms1 = sqrt(1/N*sumsq(x1_s));
+%x2_s = 12*sin(2*w0*s);   rms2 = sqrt(1/N*sumsq(x2_s));
+%x3_s = 13*sin(3*w0*s);   rms3 = sqrt(1/N*sumsq(x3_s));
+%x4_s = 14*sin(4*w0*s);   rms4 = sqrt(1/N*sumsq(x4_s));
+
 # singole componenti del segnale
 figure;
+title("singole componenti del segnale");
 plot(
   s,x0_s,strcat(";",num2str(mu),";"),
   s,x1_s,";sin(w0*s);",
@@ -53,6 +61,7 @@ x_s = x0_s .+ x1_s .+ x2_s .+ x3_s .+ x4_s;
 rms = sqrt(1/N*sumsq(x_s));
 figure;
 plot(s, x_s, ";xs;");
+title("segnale composto");
 
 %bil_fft(x_s,N);
 [P,PHI] = mon_psd(x_s,N*8);
@@ -73,6 +82,7 @@ stem(bilmod_f);
 mod_f = bilmod_f(1:N/2) .+ [0, bilmod_f(2:N/2)];
 figure;
 stem(mod_f);
+title("spettro monolatero");
 
 ## spettro di potenza
 # calcolo periodogramma (in db)

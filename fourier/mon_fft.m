@@ -29,6 +29,7 @@ function [A PHI] = mon_fft(x_n, NFFT)
   figure;
   stem(omega_q, A, "markersize", 3);
   grid on;
+  title("spettro bilatero di ampiezza");
 %  figure;  
 %  stem(omega_q, PHI);
 %  grid on;
