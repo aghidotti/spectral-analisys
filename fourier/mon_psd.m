@@ -3,9 +3,10 @@ function [P PHI] = mon_psd(x_n, NFFT)
   # numero campioni del segnale di ingresso
   N = length(x_n);
   
+  WIN = window(@rectwin, N)';
   
   # trasformata BILATERA di fourier: se N non è una potenza di 2, viene fatto zero-padding
-  X_q = fft(x_n, NFFT);
+  X_q = fft(WIN.*x_n, NFFT);
   Re_q = real(X_q);
   Im_q = imag(X_q);
 
@@ -20,7 +21,7 @@ function [P PHI] = mon_psd(x_n, NFFT)
   
   # genero finestra rettangolare --> voglio vedere la sinc che si sovrappone allo spettro
   # in caso di zero padding
-  WIN_n = [window(@rectwin, N); zeros(NFFT-N,1)]';
+  WIN_n = [WIN zeros(1,NFFT-N)];
   WIN_q = fft(WIN_n, NFFT);
   MOD_WIN_q = 1/NFFT .* abs(WIN_q);
   
